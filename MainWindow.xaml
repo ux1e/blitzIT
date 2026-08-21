@@ -1,0 +1,34 @@
+﻿<Window x:Class="ServerBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServerBrowser"
+        mc:Ignorable="d"
+        Title="blitz" Height="550" Width="500">
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Height="30" Width="120" 
+                    HorizontalAlignment="Left" Margin="5" 
+                    Content="Мониторинг" 
+                    ToolTip="Добавление своих айпишников и их мониторинг"
+                    Click="OpenIPsPages"/>
+
+            <Button Height="30" Width="120" 
+                    HorizontalAlignment="Left" Margin="5" 
+                    Content="СКАНИРОВАНИЕ" 
+                    ToolTip="ЗАНИМАЕТ ОЧЕНЬ МНОГО ВРЕМЕНИ НО СКАНИРУЕТ ВСЕ КОМПЫ В СЕТИ"
+                    Click="OpenScaningPages"/>
+        </StackPanel>
+
+        <Frame x:Name="RootFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

@@ -1,0 +1,94 @@
+﻿<Page x:Class="ServerBrowser.Pages.OurIPList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServerBrowser.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OurIPList">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Ввод IP и кнопки -->
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="textBoxInput" Width="150" Margin="0,0,10,0" />
+            <Button Content="Добавить" Click="Button_Add_Click" Width="100" />
+            <Button Content="Удалить" Click="Button_Delete_Click" Width="100" Margin="10,0,0,0" />
+        </StackPanel>
+
+        <!-- Список IP-адресов -->
+        <ListBox x:Name="listBoxItems" Grid.Row="1" Margin="10" BorderThickness="1" ItemsSource="{Binding IPAddresses}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="2" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="5" Background="SlateGray" CornerRadius="5" BorderBrush="DarkGray" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding IPAddress}" Margin="5" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" />
+                            <Ellipse Fill="{Binding StatusColor}" Width="10" Height="10" Margin="5" VerticalAlignment="Center" Grid.Column="1" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                                        <!-- Цвет фона при наведении -->
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightGreen"/>
+                                        <!-- Цвет фона при выборе -->
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+        <!-- Кнопки управления -->
+        <DockPanel Grid.Row="2" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Выкл выдел" Grid.Column="0" Click="Button_Shutdown_Click" Margin="5"/>
+                <Button Content="Под к выдел" Grid.Column="1" Click="Button_ConnectTo_Click" Margin="5"/>
+                <Button Content="Выкл все" Grid.Column="2" Click="Button_ShutdownAll_Click" Margin="5"/>
+                <Button Content="отменить" Grid.Column="3" Click="Button_AntiShutdown_Click" Margin="5"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Page>
